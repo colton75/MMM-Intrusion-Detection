@@ -15,7 +15,7 @@ pir = MotionSensor(4)
 camera = PiCamera()
 camera.resolution = (1280, 720)
 camera.framerate = 30
-camera.rotation = 180
+#camera.rotation = 180
 
 led_pin = 18
 GPIO.output(led_pin,False)
