@@ -11,7 +11,7 @@ Intrusion detection module for Magic Mirror
 3. Check if active:
 *http://magicmirrorip:8080/api/intrusion/isactive*
 ```
-//JSON response
+//JSON response for isactive
 {
   "active": true
 }
