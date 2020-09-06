@@ -2,11 +2,20 @@
 Intrusion detection module for Magic Mirror
 
 ### API Endpoints
-1. Activate
-*http://magicmirrorip:8080/api/module/intrusiondetection/activate*
+1. Activate:
+*http://magicmirrorip:8080/api/intrusion/activate*
 
-2. Deactivate
-*http://magicmirrorip:8080/api/module/intrusiondetection/deactivate*
+2. Deactivate:
+*http://magicmirrorip:8080/api/intrusion/deactivate*
+
+3. Check if active:
+*http://magicmirrorip:8080/api/intrusion/isactive*
+```
+//JSON response
+{
+  "active": true
+}
+```
 
 ### Hardware
 1. PIR sensor
