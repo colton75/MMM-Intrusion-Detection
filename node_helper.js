@@ -2,6 +2,7 @@ var NodeHelper = require("node_helper");
 const { spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const express = require("express");
 var config;
 
 module.exports = NodeHelper.create({
@@ -28,10 +29,10 @@ module.exports = NodeHelper.create({
       res.send({active: config.active});
     })
 
-    const dirPath = "../../Videos"
+    const dirPath = "/home/pi/Videos";
     const resolveBase = path.resolve(dirPath);
 
-    this.expressApp.get('/videos', (req, res) => {
+    this.expressApp.get('/intrusion/media', (req, res) => {
 	fs.readdir(dirPath, (err, files) => {
 	    if(err) return res.send(err);
 	    let fileObj = {};
@@ -44,10 +45,9 @@ module.exports = NodeHelper.create({
 			const f = {};
 			let datetime = file.split(".")[0];
 			[f.date, f.time] = datetime.split("_");
-			//f.time = datetime.split("_")[1];
 			f.fileName = file;
-			f.videoLink = `/videos/download/${file}`
-			f.imageLink = `/videos/download/${file.split(".")[0]}.jpg`
+			f.videoLink = file
+			f.imageLink = `${file.split(".")[0]}.jpg`
 			fileObj.fileArr.push(f);
 		}
 	    })
@@ -55,10 +55,7 @@ module.exports = NodeHelper.create({
 	});
     })
 
-    this.expressApp.get('/videos/download/:fileName', (req, res) => {
-	const filePath = path.join(resolveBase, req.params.fileName);
-	res.download(filePath);
-    })
+    this.expressApp.use('/intrusion/media', express.static("/home/pi/Videos"));
   },
 
   socketNotificationReceived: function (notification, payload) {
